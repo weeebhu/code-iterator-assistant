@@ -1,11 +1,12 @@
 import os
 from openai import OpenAI
 from dotenv import load_dotenv
+import streamlit as st
 
 load_dotenv()
 
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"),
-                base_url=os.getenv("OPENAI_BASE_URL"))
+client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"],
+                base_url=st.secrets["OPENAI_BASE_URL"])
 
 def modify_code(code_input, user_prompt):
     system_prompt = (
