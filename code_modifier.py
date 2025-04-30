@@ -4,8 +4,8 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-client = OpenAI(api_key="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",
-                base_url="https://openrouter.ai/api/v1")
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"),
+                base_url=os.getenv("OPENAI_BASE_URL"))
 
 def modify_code(code_input, user_prompt):
     system_prompt = (
