@@ -3,7 +3,7 @@ from openai import OpenAI
 import streamlit as st
 
 client = OpenAI(api_key= st.secrets["OPENAI_API_KEY"],
-                base_url= st.secrets["OPENAI_BASE_URL"])
+                base_url= "https://openrouter.ai/api/v1")
 
 def modify_code(code_input, user_prompt):
     system_prompt = (
