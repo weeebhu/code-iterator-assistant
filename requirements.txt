@@ -1,0 +1,26 @@
+# Core backend
+fastapi
+uvicorn
+python-multipart
+requests
+httpx
+
+# LLM support
+transformers
+torch
+accelerate
+
+# Optional OpenAI compatibility
+openai
+
+# CORS middleware
+starlette
+
+# Frontend
+streamlit
+
+# (Optional) For parsing and environment management
+python-dotenv
+
+# (Optional) JSON schema validation, if needed
+pydantic
