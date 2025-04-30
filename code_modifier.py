@@ -1,9 +1,11 @@
 import os
 from openai import OpenAI
-import streamlit as st
+from dotenv import load_dotenv
 
-client = OpenAI(api_key= "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",
-                base_url= "https://openrouter.ai/api/v1")
+load_dotenv()
+
+client = OpenAI(api_key="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",
+                base_url="https://openrouter.ai/api/v1")
 
 def modify_code(code_input, user_prompt):
     system_prompt = (
