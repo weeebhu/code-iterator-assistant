@@ -1,11 +1,26 @@
 import os
 from openai import OpenAI
 from dotenv import load_dotenv
+import streamlit as st
 
 load_dotenv()
 
-client = OpenAI(api_key="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",
-                base_url="https://openrouter.ai/api/v1")
+# api_key = os.getenv("OPENAI_API_KEY")
+# base_url = os.getenv("OPENAI_BASE_URL")
+
+api_key = st.secrets["OPENAI_API_KEY"]
+base_url = st.secrets["OPENAI_BASE_URL"]
+
+client = OpenAI(
+    api_key=api_key,
+    base_url=base_url,
+    default_headers={
+        "Authorization": f"Bearer {api_key}",  # Required for OpenRouter
+        "HTTP-Referer": "http://localhost:8501/",  # or your deployed domain
+        "X-Title": "Aicade Code Iterator AI"
+    }
+)
+
 
 def modify_code(code_input, user_prompt):
     system_prompt = (
