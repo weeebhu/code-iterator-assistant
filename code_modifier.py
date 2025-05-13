@@ -7,6 +7,7 @@ import re
 load_dotenv()
 
 api_key = st.secrets["OPENAI_API_KEY"]
+print(api_key)
 base_url = st.secrets["OPENAI_BASE_URL"]
 
 client = OpenAI(
