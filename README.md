@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 🎮 Aicade Code Iterator AI
 
 **Aicade Code Iterator AI** is a developer-friendly tool that uses an AI assistant to help you iteratively improve game-related code. With natural language instructions, you can generate suggestions, view diffs, and integrate improvements directly into your workflow—all within a Streamlit interface.
@@ -87,3 +88,24 @@
 
 
 
+=======
+🎮 Aicade Code Iterator AI
+Aicade Code Iterator AI is an AI-powered assistant that helps you improve or modify game development code based on natural language instructions. Built with Streamlit, this tool uses LLMs to generate modified code, explanations, and diffs, and lets you integrate changes seamlessly.
+
+✨ Features
+📝 Paste your code into the editor
+
+💡 Enter an instruction (e.g., "Add jump mechanic to player movement")
+
+⚙️ LLM-Powered Code Modification using Mistral-7B via OpenRouter API
+
+🔍 Diff View to visualize changes
+
+🧠 Explanation of what and why changes were made
+
+🧩 One-click Code Integration
+
+🧾 History Panel for past interactions and integration
+
+🚀 Live Demo
+>>>>>>> 746a0ab0 (snippet advancements)

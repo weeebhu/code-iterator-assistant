@@ -2,11 +2,9 @@ import os
 from openai import OpenAI
 from dotenv import load_dotenv
 import streamlit as st
+import re
 
 load_dotenv()
-
-# api_key = os.getenv("OPENAI_API_KEY")
-# base_url = os.getenv("OPENAI_BASE_URL")
 
 api_key = st.secrets["OPENAI_API_KEY"]
 base_url = st.secrets["OPENAI_BASE_URL"]
@@ -15,26 +13,30 @@ client = OpenAI(
     api_key=api_key,
     base_url=base_url,
     default_headers={
-        "Authorization": f"Bearer {api_key}",  # Required for OpenRouter
-        "HTTP-Referer": "http://localhost:8501/",  # or your deployed domain
+        "Authorization": f"Bearer {api_key}",
+        "HTTP-Referer": "http://localhost:8501/",
         "X-Title": "Aicade Code Iterator AI"
     }
 )
 
-
 def modify_code(code_input, user_prompt):
-    system_prompt = (
-            """
-            You are a coding assistant for game developers. You receive a code snippet and an instruction.
-            You must return:
-            1. The improved code snippet.
-            2. A brief explanation of what was changed and why.
-            """
-    )
-
-    messages=[
-    {"role": "system", "content": "You are a helpful coding assistant specialized in game development. Modify user code based on instructions and explain the changes clearly."},
-    {"role": "user", "content": f"Here is the code:\n{code_input}\n\nPlease apply the following change:\n{user_prompt}\n\nReturn ONLY improved code and explanation separately."}
+    messages = [
+    {
+        "role": "system",
+        "content": (
+            "You are a Python coding assistant specialized in game development.\n"
+            "Return only the Python code that was modified based on the user's request.\n"
+            "When making changes to game code, ensure the logic aligns with common game development practices.\n"
+            "Do not modify input variables unless explicitly asked. Compute new values and return updated game state.\n"
+            "For example, if the task involves modifying player health or score, always compute the result and return it, "
+            "without modifying the original player object unless specified.\n"
+            "For game logic, ensure that all necessary conditions (like health > 0) are checked."
+        )
+    },
+    {
+        "role": "user",
+        "content": f"Here is the code:\n{code_input}\n\nPlease apply the following change:\n{user_prompt}\n\nOnly return the parts of the code you changed."
+    }
     ]
 
     response = client.chat.completions.create(
@@ -45,7 +47,18 @@ def modify_code(code_input, user_prompt):
 
     content = response.choices[0].message.content.strip()
 
-    # Split modified code and explanation
+    # Extract code block using regex
+    code_match = re.search(r"```python(.*?)```", content, re.DOTALL)
+    modified_code = code_match.group(1).strip() if code_match else content
+
+    # Extract explanation
+    explanation_match = re.search(r"Explanation:(.*)", content, re.DOTALL)
+    explanation = explanation_match.group(1).strip() if explanation_match else "No explanation provided."
+
+    return modified_code, explanation
+
+    content = response.choices[0].message.content.strip()
+
     if "Explanation:" in content:
         modified_code, explanation = content.split("Explanation:", 1)
     else:
