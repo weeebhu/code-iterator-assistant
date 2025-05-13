@@ -19,7 +19,7 @@
 
 ## 🚀 Live Demo
 
-- https://code-iterator-assistant-iaj4rvsqmmmmkkgfwttmel.streamlit.app/
+- https://code-iterator-assistant-shc7pvttbpbeblmajujiuv.streamlit.app/
 
 ## 📦 Installation
 
